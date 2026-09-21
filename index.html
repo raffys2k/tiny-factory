@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny Factory</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f1115;
+            --text: #f4f4f4;
+            --muted: #8c93a1;
+            --accent: #6be675;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: .5rem;
+        }
+
+        .accent {
+            color: var(--accent);
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            color: #666;
+            font-size: .9rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Tiny <span class="accent">Factory</span></h1>
+
+        <p>
+            Building small things with purpose.
+        </p>
+
+        <p>
+            Small systems. Real purpose.
+
+            Tiny Factory is a collection of purpose-built projects—
+            compact hardware, practical software, and automation tools
+            designed to solve real-world problems.
+
+            More creations are on the way.
+        </p>
+
+        <div class="footer">
+            Coming Soon
+        </div>
+
+    </div>
+
+</body>
+
+</html>

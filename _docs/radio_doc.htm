@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tiny Radio · Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #3a322c;
+            --bg-card: #4a4038;
+            --bg-surface: #2a221c;
+            --bg-input: #1a1512;
+            --text-primary: #e8ddd0;
+            --text-secondary: #a89786;
+            --text-muted: #8a7a6a;
+            --border-color: #5d4f44;
+            --accent: #8a7a6a;
+            --accent-dark: #6d5f52;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.7);
+            --success: #7bcfa6;
+            --warning: #f0c674;
+            --danger: #e05a5a;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .doc-container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow), 0 0 0 2px var(--border-color) inset, 0 0 0 4px var(--bg-primary) inset;
+            padding: 32px 28px 36px;
+        }
+
+        /* ===== Security Banner ===== */
+        .security-banner {
+            background: var(--bg-surface);
+            border: 2px solid var(--warning);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .security-banner .icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .security-banner .content h3 {
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .security-banner .content p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg-input);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .brand small {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .version-badge {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Navigation Tabs ===== */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 40px 40px 0 0;
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* ===== Tab Content ===== */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Cards ===== */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 24px 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title .badge {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 2px 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .info-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        .info-card h4 {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .info-card p,
+        .info-card li {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .info-card ul,
+        .info-card ol {
+            padding-left: 20px;
+            margin: 6px 0;
+        }
+
+        .info-card li {
+            margin-bottom: 4px;
+        }
+
+        .info-card code {
+            background: var(--bg-input);
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #d4c5b6;
+            border: 1px solid var(--border-color);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .info-card .highlight {
+            color: #f0e6da;
+            font-weight: 500;
+        }
+
+        .security-note {
+            background: rgba(224, 90, 90, 0.15);
+            border-left: 3px solid var(--danger);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .security-note strong {
+            color: var(--danger);
+        }
+
+        /* ===== Grid ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 10px 0 16px;
+        }
+
+        .feature-item {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .feature-item .icon {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .feature-item .label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .feature-item .value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ===== Stats Bar ===== */
+        .stats-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .stat-item .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-item .stat-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===== Station List ===== */
+        .station-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .station-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .station-grid::-webkit-scrollbar-track {
+            background: var(--bg-input);
+            border-radius: 4px;
+        }
+        .station-grid::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .station-chip {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .station-chip .idx {
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            margin-right: 4px;
+        }
+
+        /* ===== Security Tips ===== */
+        .tip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .tip-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .tip-card .tip-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        .tip-card .tip-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+
+        .tip-card .tip-desc {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-brand .dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--border-color);
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 600px) {
+            .doc-container {
+                padding: 18px 14px 24px;
+            }
+
+            .brand h1 {
+                font-size: 1.2rem;
+            }
+
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .station-grid {
+                grid-template-columns: 1fr 1fr;
+                max-height: 300px;
+            }
+
+            .tip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .security-banner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .station-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        /* ===== Misc ===== */
+        .text-muted {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 2px 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+    </style>
+</head>
+<body>
+    <div class="doc-container">
+
+        <!-- ===== SECURITY BANNER ===== -->
+        <div class="security-banner">
+            <div class="icon">🔒</div>
+            <div class="content">
+                <h3>Security Notice</h3>
+                <p>
+                    This documentation is for <strong>end users</strong> and does not contain
+                    implementation details, internal API endpoints, or network configuration
+                    that could be used for unauthorized access.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== Header ===== -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-icon">◉</div>
+                <div>
+                    <h1>tiny Radio</h1>
+                    <small>Internet Radio · TinyFactory</small>
+                </div>
+            </div>
+            <div class="version-badge">v1.0.0 · 500+ stations</div>
+        </header>
+
+        <!-- ===== Tabs ===== -->
+        <nav class="tabs" id="tabNav">
+            <button class="tab-btn active" data-tab="overview">📋 Overview</button>
+            <button class="tab-btn" data-tab="features">⚙️ Features</button>
+            <button class="tab-btn" data-tab="security">🔒 Security</button>
+            <button class="tab-btn" data-tab="troubleshooting">🛠️ Help</button>
+        </nav>
+
+        <!-- ===== TAB: Overview ===== -->
+        <div class="tab-content active" id="tab-overview">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Stations</span>
+                    <span class="stat-value" id="stationCount">500+</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Audio</span>
+                    <span class="stat-value">Good Quality</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Control</span>
+                    <span class="stat-value">Android App or Web interface</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Scheduling</span>
+                    <span class="stat-value">Daily Profiles</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4>🎯 About</h4>
+                <p>
+                    <strong>tinyRadio</strong> is an internet radio player that streams
+                    from a curated list of <strong>500+ stations</strong> worldwide.
+                    It's designed to be simple, reliable, and easy to use.
+                </p>
+                <p style="margin-top:8px;">
+                    The station list is periodically updated and maintained, each station passes
+                    through a set of tests and checks before getting considered.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h4>🚀 Getting Started</h4>
+                <ol>
+                    <li>Power on the device — it will automatically try to connect to WiFi.</li>
+                    <li>If no WiFi is configured, the device will start in <strong>setup mode</strong>.</li>
+                    <li>Follow the guide from this <strong><a href="https://tiny-factory.netlify.app/_docs/radio_guide.htm">link</a></strong> on how to setup your radio</li>
+                    <li>Once connected, the radio will start playing from the last station.</li>
+                    <li>Access the web interface from any browser on the same network.</li>
+                </ol>
+                <div class="security-note">
+                    <strong>🔒 Note:</strong> The web interface is only accessible from your
+                    local network. It is not exposed to the internet.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: Features ===== -->
+        <div class="tab-content" id="tab-features">
+            <div class="section-title">
+                ⚙️ Features
+                <span class="badge">500+ stations</span>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="icon">📻</span>
+                    <div class="label">Stations</div>
+                    <div class="value">500+</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🎚️</span>
+                    <div class="label">Equalizer</div>
+                    <div class="value">3-Band</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">⏰</span>
+                    <div class="label">Scheduling</div>
+                    <div class="value">Daily Profiles</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📶</span>
+                    <div class="label">WiFi</div>
+                    <div class="value">Auto-Reconnect</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔊</span>
+                    <div class="label">Volume</div>
+                    <div class="value">Fine Control</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">💾</span>
+                    <div class="label">Persistence</div>
+                    <div class="value">Saves Settings</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔄</span>
+                    <div class="label">Manual-Update</div>
+                    <div class="value">Station List</div>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📱</span>
+                    <div class="label">Web UI</div>
+                    <div class="value">Responsive</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4>🎛️ Audio Controls</h4>
+                <ul>
+                    <li><strong>Volume:</strong> Adjustable from the web interface</li>
+                    <li><strong>Equalizer:</strong> Bass, Mid, and Treble control</li>
+                    <li><strong>Presets:</strong> Quick EQ profiles (Flat, Bass Boost, Vocal, etc.)</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4>⏰ Daily Scheduling</h4>
+                <p>
+                    The <strong>Profiles</strong> feature lets you schedule station playback
+                    at specific times. Each schedule includes:
+                </p>
+                <ul>
+                    <li>Start and end time</li>
+                    <li>Station selection</li>
+                    <li>Volume level</li>
+                    <li>Days of the week</li>
+                </ul>
+                <p style="margin-top:6px; font-size:0.85rem; color:var(--text-secondary);">
+                    The device automatically prepares for scheduled playback to ensure smooth operation.
+                    Can work like an alarm clock or an automated player.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h4>🔄 Station Updates &amp; Revert</h4>
+                <p>
+                    Your station list can be updated manually from the <strong>Device</strong> page.
+                    Before any update runs, the current list is automatically backed up on the device.
+                </p>
+                <ul>
+                    <li><strong>Check for Updates:</strong> Asks the server if a newer station list is available.</li>
+                    <li><strong>Update Now:</strong> Downloads and applies the new list.</li>
+                    <li><strong>Revert to Previous List:</strong> Restores the previous station list — useful if a new update contains stations that don't work for you.</li>
+                </ul>
+                <p style="margin-top:6px; font-size:0.85rem; color:var(--text-secondary);">
+                    If an update fails partway through, the device automatically restores the
+                    previous list — you will never be left with no stations.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== TAB: Security ===== -->
+        <div class="tab-content" id="tab-security">
+            <div class="info-card">
+                <h4>🔒 Security Overview</h4>
+                <p>
+                    The tiny Radio is designed with security in mind. Here's how your device
+                    and network are protected:
+                </p>
+
+                <div class="tip-grid">
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">🏠</span>
+                            <span class="tip-title">Local Only</span>
+                        </div>
+                        <div class="tip-desc">
+                            The web interface is only accessible from your local network.
+                            No remote access is enabled by default.
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">🔑</span>
+                            <span class="tip-title">No Default Credentials</span>
+                        </div>
+                        <div class="tip-desc">
+                            The device uses your WiFi credentials. No hardcoded passwords exist.
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">📡</span>
+                            <span class="tip-title">Encrypted WiFi</span>
+                        </div>
+                        <div class="tip-desc">
+                            Supports WPA2 WiFi encryption for secure network communication.
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">🔄</span>
+                            <span class="tip-title">Secure Updates</span>
+                        </div>
+                        <div class="tip-desc">
+                            Station list updates are fetched over HTTPS from trusted sources.
+                            No automated updates without user consent.
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">🧹</span>
+                            <span class="tip-title">Factory Reset</span>
+                        </div>
+                        <div class="tip-desc">
+                            A factory reset clears all settings, including WiFi credentials.
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <div>
+                            <span class="tip-icon">🛡️</span>
+                            <span class="tip-title">Minimal Attack Surface</span>
+                        </div>
+                        <div class="tip-desc">
+                            The device runs only essential services. No unnecessary open ports.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="security-note" style="margin-top:12px;">
+                    <strong>⚠️ Best Practice:</strong> Keep your WiFi network secure with a strong
+                    password. The device is only as secure as your home network.
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4>🛡️ User Responsibility</h4>
+                <ul>
+                    <li>Use a strong WiFi password to protect your network</li>
+                    <li>Keep the device safe from fall or water damage</li>
+                    <li>Perform a factory reset before disposing of the device</li>
+                    <li>Contact support if you suspect any security issues</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ===== TAB: Troubleshooting ===== -->
+        <div class="tab-content" id="tab-troubleshooting">
+            <div class="info-card">
+                <h4>🛠️ Common Issues</h4>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">No WiFi connection</h4>
+                <ul>
+                    <li>The device will enter setup mode automatically if no WiFi keys are found.</li>
+                    <li>Check that your WiFi network is 2.4 GHz (5 GHz is not supported).</li>
+                    <li>Ensure the WiFi password is correct.</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">No audio / station not playing</h4>
+                <ul>
+                    <li>Try a different station — some stations may be temporarily offline.</li>
+                    <li>Check the volume level in the web interface.</li>
+                    <li>Check if <code>Enable Profiles</code> is active. Radio maybe outside scheduled time.</li>
+                    <li>Check if the radio is paused.</li>
+                    <li>Ensure that internet connection is active.</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Web interface not loading</h4>
+                <ul>
+                    <li>Make sure your device is on the same network as the radio.</li>
+                    <li>Check the device IP address from your router's DHCP list and connect directly to the IP.</li>
+                    <li>Try using <code>http://tinyradio.local</code> on your browser.</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Station Update fails</h4>
+                <ul>
+                    <li>If the update fails, the device automatically restores the previous station list — your stations will not disappear.</li>
+                    <li>Reboot tinyRadio. Check diagnostics for <code>Manifest</code>, verify version changed.</li>
+                    <li>Always clear application data of tinyRadio's android app if station update doesnt show any changes.</li>
+                    <li>If the update succeeded but the new stations don't work for you, use <strong>Revert to Previous List</strong> on the Device page to roll back.</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Station list looks wrong after an update</h4>
+                <ul>
+                    <li>Open the <strong>Device</strong> page in the web interface.</li>
+                    <li>Tap <strong>Revert to Previous List</strong> to restore the previous station list.</li>
+                    <li>This is available whenever a backup exists (it will be greyed out if there is nothing to revert to).</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Reset the device</h4>
+                <ul>
+                    <li>Use the <strong>Factory Reset</strong> option in the web interface.</li>
+                    <li>This clears all settings and WiFi credentials.</li>
+                    <li>After reset, the device will enter setup mode.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4>💡 Tips</h4>
+                <ul>
+                    <li>The device uses LED indicators to show status:
+                        <ul>
+                            <li><strong>Short, Rapid Blue blinks:</strong> Normal operation</li>
+                            <li><strong>Short, Rapid Red blinks:</strong> Setup mode or error</li>
+                            <li><strong>Short, Rapic Purple blinks:</strong> Action in progress</li>
+                        </ul>
+                    </li>
+                    <li>For best performance, place the device within range of your WiFi router.</li>
+                    <li>Stations are manually updated — User has total control.</li>
+                    <li>A backup of the previous station list is kept on the device after every update, so you can always roll back.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ===== Footer ===== -->
+        <footer class="footer">
+            <span class="footer-brand">
+                <span>tiny</span>
+                <span class="dot"></span>
+                <span>factory</span>
+            </span>
+            <span>
+                <span id="stationFooterCount">500+</span> stations ·
+                <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ top</a>
+            </span>
+        </footer>
+    </div>
+
+    <script>
+        // ===== Tab Switching =====
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = {
+            overview: document.getElementById('tab-overview'),
+            features: document.getElementById('tab-features'),
+            security: document.getElementById('tab-security'),
+            troubleshooting: document.getElementById('tab-troubleshooting'),
+        };
+
+        tabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabs.forEach(b => b.classList.remove('active'));
+                Object.values(contents).forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                const tabId = btn.dataset.tab;
+                if (contents[tabId]) {
+                    contents[tabId].classList.add('active');
+                }
+            });
+        });
+
+        // ===== Station count =====
+        const grid = document.getElementById('stationGrid');
+        const totalStations = grid ? grid.querySelectorAll('.station-chip').length : 500;
+        document.getElementById('stationCount').textContent = totalStations + '+';
+        document.getElementById('stationFooterCount').textContent = totalStations + '+';
+    </script>
+</body>
+</html>

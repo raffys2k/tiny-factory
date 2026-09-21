@@ -1,0 +1,6 @@
+{
+  "version": 9,
+  "stationSources": [
+    "https://raffys2k.github.io/data-relay/candidate.json"
+  ]
+}

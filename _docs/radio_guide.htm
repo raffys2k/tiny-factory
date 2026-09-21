@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tiny Radio · Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #3a322c;
+            --bg-card: #4a4038;
+            --bg-surface: #2a221c;
+            --bg-input: #1a1512;
+            --text-primary: #e8ddd0;
+            --text-secondary: #a89786;
+            --text-muted: #8a7a6a;
+            --border-color: #5d4f44;
+            --accent: #8a7a6a;
+            --accent-dark: #6d5f52;
+            --success: #7bcfa6;
+            --warning: #f0c674;
+            --danger: #e05a5a;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.7);
+            --android-green: #3DDC84;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .setup-container {
+            max-width: 820px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow), 0 0 0 2px var(--border-color) inset, 0 0 0 4px var(--bg-primary) inset;
+            padding: 32px 28px 36px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg-input);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .brand small {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .setup-progress {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .step-dot.active {
+            background: var(--accent);
+            border-color: var(--accent-dark);
+            color: var(--bg-input);
+        }
+
+        .step-dot.done {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--bg-input);
+        }
+
+        .step-line {
+            width: 20px;
+            height: 2px;
+            background: var(--border-color);
+        }
+
+        .step-line.done {
+            background: var(--success);
+        }
+
+        .progress-bar-wrap {
+            background: var(--bg-surface);
+            border-radius: 40px;
+            height: 6px;
+            margin-bottom: 28px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--success), var(--accent));
+            border-radius: 40px;
+            transition: width 0.5s ease;
+        }
+
+        .step-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-input);
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 2px 14px;
+            border-radius: 40px;
+            margin-bottom: 8px;
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .step-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .info-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            margin-bottom: 14px;
+        }
+
+        .info-card h4 {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .info-card ul,
+        .info-card ol {
+            padding-left: 20px;
+            margin: 4px 0;
+        }
+
+        .info-card li {
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .info-card code {
+            background: var(--bg-input);
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #d4c5b6;
+            border: 1px solid var(--border-color);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 10px 0;
+        }
+
+        .method-card {
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 18px 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .method-card:hover {
+            border-color: var(--accent);
+        }
+
+        .method-card .icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .method-card .method-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .method-card .method-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .method-card .badge {
+            display: inline-block;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 12px;
+            border-radius: 40px;
+            margin-top: 8px;
+        }
+
+        .method-card .badge.android {
+            background: var(--android-green);
+            color: #000;
+        }
+
+        .method-card .badge.web {
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .method-card .badge.recommended {
+            background: var(--success);
+            color: var(--bg-input);
+        }
+
+        .tip-box {
+            background: rgba(240, 198, 116, 0.12);
+            border-left: 3px solid var(--warning);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .tip-box strong {
+            color: var(--warning);
+        }
+
+        .warning-box {
+            background: rgba(224, 90, 90, 0.12);
+            border-left: 3px solid var(--danger);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .warning-box strong {
+            color: var(--danger);
+        }
+
+        .success-box {
+            background: rgba(123, 207, 166, 0.12);
+            border-left: 3px solid var(--success);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .success-box strong {
+            color: var(--success);
+        }
+
+        .app-download {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-input);
+            border: 2px solid var(--android-green);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 10px 0 14px;
+            flex-wrap: wrap;
+        }
+
+        .app-download .app-icon {
+            font-size: 2.8rem;
+            flex-shrink: 0;
+        }
+
+        .app-download .app-info {
+            flex: 1;
+        }
+
+        .app-download .app-info h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .app-download .app-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .app-download .app-badge {
+            background: var(--android-green);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .app-download .app-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder {
+            background: var(--bg-input);
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            padding: 30px 20px;
+            text-align: center;
+            margin: 10px 0 14px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .image-placeholder .icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.15s, background 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-input);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--bg-input);
+            border: 1px solid #5aa882;
+        }
+
+        .btn-success:hover {
+            background: #5aa882;
+        }
+
+        .btn-android {
+            background: var(--android-green);
+            color: #000;
+            border: 1px solid #2ea86e;
+        }
+
+        .btn-android:hover {
+            background: #2ea86e;
+        }
+
+        .footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-brand .dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--border-color);
+        }
+
+        @media (max-width: 700px) {
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-download {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .setup-container {
+                padding: 18px 14px 24px;
+            }
+
+            .brand h1 {
+                font-size: 1.2rem;
+            }
+
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .step-title {
+                font-size: 1.2rem;
+            }
+
+            .step-dot {
+                width: 26px;
+                height: 26px;
+                font-size: 0.6rem;
+            }
+
+            .step-line {
+                width: 12px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .setup-container {
+                padding: 14px 10px 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .setup-progress {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+
+        <!-- ===== Header ===== -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-icon">◉</div>
+                <div>
+                    <h1>tiny Radio</h1>
+                    <small>Setup Guide</small>
+                </div>
+            </div>
+            <div class="setup-progress" id="stepDots">
+                <span class="step-dot active" data-step="0">1</span>
+                <span class="step-line" id="line0"></span>
+                <span class="step-dot" data-step="1">2</span>
+                <span class="step-line" id="line1"></span>
+                <span class="step-dot" data-step="2">3</span>
+                <span class="step-line" id="line2"></span>
+                <span class="step-dot" data-step="3">4</span>
+                <span class="step-line" id="line3"></span>
+                <span class="step-dot" data-step="4">5</span>
+            </div>
+        </header>
+
+        <!-- ===== Progress Bar ===== -->
+        <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+        </div>
+
+        <!-- ===== STEP 1 ===== -->
+        <div class="step-content active" data-step="0">
+            <span class="step-number">STEP 1</span>
+            <h2 class="step-title">📦 What's in the Box</h2>
+            <p class="step-desc">Before we start, let's make sure you have everything you need.</p>
+
+            <div class="info-card">
+                <h4>✅ Included</h4>
+                <ul>
+                    <li>tiny Radio device</li>
+                    <li>USB-C power cable</li>
+                    <li>Quick start card (optional)</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4>📋 You'll Also Need</h4>
+                <ul>
+                    <li>A <strong>WiFi network</strong> (2.4 GHz)</li>
+                    <li>Your <strong>WiFi name (SSID)</strong> and <strong>password</strong></li>
+                    <li>An <strong>Android phone</strong> (optional — for the app)</li>
+                    <li>A <strong>web browser</strong> (optional — for web setup)</li>
+                    <li>A <strong>power outlet</strong> near the device</li>
+                </ul>
+            </div>
+
+            <div class="image-placeholder">
+                <span class="icon">📦</span>
+                <p>Contents: tiny Radio device, USB-C cable, quick start card</p>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <!-- ===== STEP 2 ===== -->
+        <div class="step-content" data-step="1">
+            <span class="step-number">STEP 2</span>
+            <h2 class="step-title">🔌 Power Up</h2>
+            <p class="step-desc">Connect the power and wait for the device to start.</p>
+
+            <div class="info-card">
+                <h4>📋 Instructions</h4>
+                <ol>
+                    <li>Connect the USB-C cable to the <strong>tiny Radio</strong> device.</li>
+                    <li>Plug the other end into a <strong>power adapter</strong> (5V, 1A or higher).</li>
+                    <li>Wait about <strong>10–15 seconds</strong> for the device to start up.</li>
+                    <li>The device will automatically enter <strong>setup mode</strong> if no WiFi is configured.</li>
+                </ol>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Tip:</strong> This is normal for first-time use. The device is waiting for you to configure WiFi.
+            </div>
+
+            <div class="image-placeholder">
+                <span class="icon">🔌</span>
+                <p>Connect USB-C to device, plug into power</p>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <!-- ===== STEP 3 ===== -->
+        <div class="step-content" data-step="2">
+            <span class="step-number">STEP 3</span>
+            <h2 class="step-title">📶 Connect to WiFi</h2>
+            <p class="step-desc">Choose your preferred setup method below.</p>
+
+            <!-- ===== Android App Download ===== -->
+            <div class="app-download">
+                <div class="app-icon">📱</div>
+                <div class="app-info">
+                    <h4>tiny Radio App for Android</h4>
+                    <p>Quick and easy setup right from your phone. Available for download here.</p>
+                </div>
+                <a href="https://tiny-factory.netlify.app/_apps/tinyRadio.apk" class="app-badge">📲 Get the App</a>
+            </div>
+
+            <div class="method-grid">
+                <!-- Method 1: Android App -->
+                <div class="method-card">
+                    <span class="icon">📱</span>
+                    <div class="method-title">Android App</div>
+                    <div class="method-desc">
+                        Connect to the device's WiFi network<br />
+                        Open the tinyRadio Android App<br />
+                        One-tap setup
+                    </div>
+                    <span class="badge android">Android</span>
+                </div>
+
+                <!-- Method 2: Web Browser -->
+                <div class="method-card">
+                    <span class="icon">🌐</span>
+                    <div class="method-title">Web Browser</div>
+                    <div class="method-desc">
+                        Connect to the device's WiFi network<br />
+                        Open <code>192.168.4.1</code> in your browser<br />
+                        Enter WiFi credentials manually
+                    </div>
+                    <span class="badge web">Web</span>
+                </div>
+            </div>
+
+            <!-- ===== Android App Method ===== -->
+            <div class="info-card">
+                <h4>📱 Setup with the Android App</h4>
+                <ol>
+                    <li>Download and install the <strong>tiny Radio app</strong> from the button above.</li>
+                    <li>Open your phone/tablet's <strong>WiFi settings</strong>.</li>
+                    <li>Connect to <code>TinyRadio AP</code> (no password).</li>
+                    <li>Open the tinyRadio android application.</li>
+                    <li>Click <strong>"Scan Networks"</strong> or Enter your <strong>WiFi name and password</strong> in the app.</li>
+                    <li>Tap <strong>"Save &amp; Reboot"</strong> — the app handles the rest!</li>
+                    <li>In case the android application doesnt automatically refresh.
+                        <ol>
+                            <li>Exit the tinyRadio android application</li>
+                            <li>Clear recents or clear tinyRadio application data</li>
+                            <li>Open the tinyRadio application again.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <div class="success-box" style="margin-top:8px;">
+                    <strong>✨ Done!</strong> The device will connect to your WiFi on reboot and start playing.
+                </div>
+            </div>
+
+            <!-- ===== Web Browser Method ===== -->
+            <div class="info-card">
+                <h4>🌐 Setup with Web Browser</h4>
+                <ol>
+                    <li>Open your phone/computer's <strong>WiFi settings</strong>.</li>
+                    <li>Connect to <code>TinyRadio AP</code> (no password).</li>
+                    <li>Open your <strong>web browser</strong> and go to <code>192.168.4.1</code>.</li>
+                    <li>Click <strong>"Scan Networks"</strong> or enter your WiFi name.</li>
+                    <li>Enter your WiFi <strong>password</strong> and click <strong>"Save &amp; Reboot"</strong>.</li>
+                </ol>
+                <div class="tip-box" style="margin-top:8px;">
+                    <strong>💡 Tip:</strong> The device only supports <strong>2.4 GHz</strong> WiFi networks.
+                    If your router has both bands, connect to the 2.4 GHz one.
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> After saving WiFi credentials, the device will reboot.
+                This takes about <strong>30 seconds</strong>. Please wait — don't unplug the device.
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <!-- ===== STEP 4 ===== -->
+        <div class="step-content" data-step="3">
+            <span class="step-number">STEP 4</span>
+            <h2 class="step-title">🎵 First Listen</h2>
+            <p class="step-desc">Your device is connected! Time to hear your first station.</p>
+
+            <div class="info-card">
+                <h4>🎯 What Happens Next</h4>
+                <ol>
+                    <li>The device <strong>reboots</strong> and connects to your WiFi.</li>
+                    <li>It will automatically start playing the <strong>first station</strong> in the list.</li>
+                    <li>Connect your phone/computer to the same network.</li>
+                    <li>You can now control the radio from your <strong>Android app</strong> or <strong>web browser</strong>.</li>
+                </ol>
+            </div>
+
+            <div class="info-card">
+                <h4>🎮 Control Your Radio</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px;">
+                    <div style="background:var(--bg-input); border-radius:12px; padding:12px; text-align:center;">
+                        <div style="font-size:1.8rem;">📱</div>
+                        <div style="font-weight:600; font-size:0.9rem;">Android App</div>
+                        <div style="font-size:0.75rem; color:var(--text-secondary);">Full control on your phone</div>
+                    </div>
+                    <div style="background:var(--bg-input); border-radius:12px; padding:12px; text-align:center;">
+                        <div style="font-size:1.8rem;">🌐</div>
+                        <div style="font-weight:600; font-size:0.9rem;">Web Interface</div>
+                        <div style="font-size:0.75rem; color:var(--text-secondary);">Any browser on your network</div>
+                    </div>
+                </div>
+                <div style="margin-top:10px; font-size:0.85rem; color:var(--text-secondary);">
+                    <strong>Web interface URL:</strong> <code>http://tinyradio.local</code>
+                    <span style="display:block; font-size:0.75rem; margin-top:2px;">(or find the device IP in your router's DHCP list)</span>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>🎉 Success!</strong> Your tiny Radio is now playing.
+                If you don't hear anything, check the volume in the app or web interface.
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <!-- ===== STEP 5 ===== -->
+        <div class="step-content" data-step="4">
+            <span class="step-number">STEP 5</span>
+            <h2 class="step-title">🎛️ Explore &amp; Enjoy</h2>
+            <p class="step-desc">You're all set! Here's what you can do with your tiny Radio.</p>
+
+            <div class="info-card">
+                <h4>🎯 Quick Controls</h4>
+                <ul>
+                    <li><strong>Change stations:</strong> Use the app or web dropdown.</li>
+                    <li><strong>Adjust volume:</strong> Use the + and - buttons.</li>
+                    <li><strong>Set EQ:</strong> Boost bass, mid, or treble to your liking.</li>
+                    <li><strong>Schedule playback:</strong> Set up daily profiles for automatic listening.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4>🔄 Updating Your Station List</h4>
+                <p>
+                    Your radio comes with a curated list of stations, but you can update it
+                    anytime from the <strong>Device</strong> page in the web interface.
+                </p>
+                <ol>
+                    <li>Open the <strong>Device</strong> page.</li>
+                    <li>Tap <strong>Check for Updates</strong> to see if a newer list is available.</li>
+                    <li>If an update is available, tap <strong>Update Now</strong>.</li>
+                    <li>Wait a few seconds — you'll see a confirmation message.</li>
+                </ol>
+                <div class="tip-box" style="margin-top:8px;">
+                    <strong>💡 Undo an update:</strong> Every update is backed up automatically.
+                    If you don't like the new list, tap <strong>Revert to Previous List</strong>
+                    on the Device page to restore the previous one. This button is only enabled
+                    when a backup is available.
+                </div>
+                <div class="success-box" style="margin-top:8px;">
+                    <strong>✨ Safe by design:</strong> If an update fails, the device
+                    automatically restores the previous station list. You will never be left
+                    with no stations.
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4>🔧 Advanced Features</h4>
+                <ul>
+                    <li><strong>Equalizer Presets:</strong> Flat, Bass Boost, Vocal, Treble, Rock, Warm</li>
+                    <li><strong>Daily Schedules:</strong> Set start/end times, station, volume, and days</li>
+                    <li><strong>Device Management:</strong> Reboot, factory reset, and diagnostics</li>
+                    <li><strong>Auto-Reconnect:</strong> Device reconnects to WiFi automatically</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4>🆘 Need Help?</h4>
+                <ul>
+                    <li>Use the <strong>Diagnostics</strong> page in the web interface</li>
+                    <li><strong>Factory reset</strong> from the web interface if you need to start over</li>
+                    <li>Check the <strong>quick start card</strong> included in the box</li>
+                </ul>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> The Android app makes it easy to control your radio
+                directly from your phone or tablet.
+            </div>
+
+            <div class="success-box" style="margin-top:12px;">
+                <strong>🎉 Setup Complete!</strong>
+                Your tiny Radio is ready. Happy listening! 📻
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                <button class="btn btn-success" onclick="goToStep(0)">🔄 Start Over</button>
+            </div>
+        </div>
+
+        <!-- ===== Footer ===== -->
+        <footer class="footer">
+            <span class="footer-brand">
+                <span>tiny</span>
+                <span class="dot"></span>
+                <span>factory</span>
+            </span>
+            <span>
+                <span id="stepCounter">1 / 5</span>
+            </span>
+        </footer>
+
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 5;
+
+        function nextStep() {
+            if (currentStep < totalSteps - 1) {
+                goToStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                goToStep(currentStep - 1);
+            }
+        }
+
+        function goToStep(step) {
+            if (step < 0 || step >= totalSteps) return;
+
+            currentStep = step;
+
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`.step-content[data-step="${step}"]`).classList.add('active');
+
+            document.querySelectorAll('.step-dot').forEach(dot => {
+                const idx = parseInt(dot.dataset.step);
+                dot.classList.remove('active', 'done');
+                if (idx === step) dot.classList.add('active');
+                else if (idx < step) dot.classList.add('done');
+            });
+
+            document.querySelectorAll('.step-line').forEach(line => {
+                const idx = parseInt(line.id.replace('line', ''));
+                if (idx < step) {
+                    line.classList.add('done');
+                } else {
+                    line.classList.remove('done');
+                }
+            });
+
+            const progress = ((step + 1) / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepCounter').textContent = `${step + 1} / ${totalSteps}`;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                nextStep();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                prevStep();
+            }
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextStep();
+                else prevStep();
+            }
+        });
+
+        document.querySelectorAll('.step-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const step = parseInt(dot.dataset.step);
+                goToStep(step);
+            });
+        });
+
+        goToStep(0);
+    </script>
+</body>
+</html>

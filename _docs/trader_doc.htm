@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tinytrader - User Guide</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#aaa;font-family:Arial,sans-serif;padding:10px}
+.container{max-width:900px;margin:0 auto}
+
+/* Header */
+.header{background:#050505;border:1px solid #151515;padding:25px;margin-bottom:20px;text-align:center}
+.header h1{color:#8f8;font-size:30px;letter-spacing:2px}
+.header p{color:#666;font-size:15px;margin-top:8px}
+.header .badge{display:inline-block;background:#1a2a1a;color:#8f8;padding:4px 12px;border:1px solid #2a4a2a;font-size:12px;margin-top:8px}
+
+/* Navigation */
+.nav{background:#050505;border:1px solid #151515;padding:12px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.nav a{color:#888;text-decoration:none;padding:6px 14px;font-size:13px;border:1px solid transparent;border-radius:3px}
+.nav a:hover{color:#ccc;border-color:#333;background:#0f0f0f}
+
+/* Cards */
+.card{background:#050505;border:1px solid #151515;padding:20px;margin-bottom:15px;border-radius:4px}
+.card h2{color:#ccc;font-size:20px;border-bottom:1px solid #1a1a1a;padding-bottom:10px;margin-bottom:15px}
+.card h3{color:#888;font-size:16px;margin:15px 0 8px}
+.card p{color:#aaa;font-size:14px;line-height:1.7;margin-bottom:10px}
+.card code{background:#111;padding:2px 8px;border:1px solid #222;font-size:13px;color:#8f8;border-radius:3px}
+.card pre{background:#111;border:1px solid #222;padding:12px;overflow-x:auto;font-size:13px;color:#8f8;margin:8px 0;border-radius:4px;line-height:1.6}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:10px 0}
+td,th{padding:8px 10px;text-align:left;border-bottom:1px solid #151515;font-size:13px}
+th{color:#555;font-weight:normal;text-transform:uppercase;letter-spacing:1px}
+td{color:#aaa}
+
+/* Badges & Tags */
+.tag{display:inline-block;padding:3px 10px;font-size:12px;border-radius:3px;margin-right:5px}
+.tag.green{background:#1a2a1a;color:#8f8;border:1px solid #2a4a2a}
+.tag.red{background:#2a1a1a;color:#f88;border:1px solid #4a2a2a}
+.tag.yellow{background:#2a2a1a;color:#ff8;border:1px solid #4a4a2a}
+.tag.blue{background:#1a1a2a;color:#88f;border:1px solid #2a2a4a}
+.tag.gray{background:#111;color:#666;border:1px solid #222}
+
+/* Grid Layout */
+.grid{display:flex;flex-wrap:wrap;gap:15px}
+.grid .col{flex:1;min-width:220px}
+
+/* Lists */
+ul,ol{margin:8px 0 8px 22px;color:#aaa;font-size:14px;line-height:1.8}
+li{margin-bottom:4px}
+
+/* Dividers */
+hr{border:none;border-top:1px solid #151515;margin:15px 0}
+
+/* Step Box */
+.step{background:#0a0a0a;border-left:3px solid #2a4a2a;padding:10px 15px;margin:8px 0}
+.step strong{color:#8f8}
+
+/* Warning Box */
+.warning{background:#1a0a0a;border:1px solid #4a2a2a;padding:12px 15px;margin:10px 0;border-radius:4px}
+.warning strong{color:#f88}
+
+/* Tip Box */
+.tip{background:#0a0a1a;border:1px solid #2a2a4a;padding:12px 15px;margin:10px 0;border-radius:4px}
+.tip strong{color:#88f}
+
+/* Responsive */
+@media screen and (max-width:600px){
+  .header h1{font-size:22px}
+  .nav a{font-size:11px;padding:4px 10px}
+  .grid .col{min-width:100%}
+  table,td,th{font-size:12px;padding:5px 6px}
+  .card{padding:15px}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+    <h1>⬡ Tinytrader</h1>
+    <p>Your Automated Trading Assistant</p>
+    <span class="badge">v2.0 &bull; User Guide</span>
+</div>
+
+<!-- ==================== NAVIGATION ==================== -->
+<div class="nav">
+    <a href="#start">Quick Start</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#modes">Trading Modes</a>
+    <a href="#api">API Keys</a>
+    <a href="#rules">Trading Rules</a>
+    <a href="#pairs">Coin Selection</a>
+    <a href="#settings">Settings</a>
+    <a href="#safety">Safety</a>
+    <a href="#faq">FAQ</a>
+</div>
+
+<!-- ==================== QUICK START ==================== -->
+<div class="card" id="start">
+    <h2>🚀 Quick Start</h2>
+    
+    <h3>First Time Setup</h3>
+    <div class="step">
+        <strong>Step 1:</strong> Power on your Tinytrader device
+    </div>
+    <div class="step">
+        <strong>Step 2:</strong> Connect your phone/computer to WiFi network: <code>Tinytrader-Setup</code><br>
+        <span style="color:#666;font-size:13px;">Password: <code>12345678</code></span>
+    </div>
+    <div class="step">
+        <strong>Step 3:</strong> Open browser and go to <code>http://192.168.4.1</code>
+    </div>
+    <div class="step">
+        <strong>Step 4:</strong> Select your home WiFi, enter password, click Connect
+    </div>
+    <div class="step">
+        <strong>Step 5:</strong> After reboot, connect to your home WiFi and go to <code>http://tinytrader.local</code>
+    </div>
+
+    <div class="tip">
+        <strong>💡 Tip:</strong> The device remembers your WiFi. Next time it will connect automatically.
+    </div>
+</div>
+
+<!-- ==================== DASHBOARD ==================== -->
+<div class="card" id="dashboard">
+    <h2>📊 Dashboard Overview</h2>
+    
+    <p>When you open <code>http://tinytrader.local</code>, you'll see your main control panel.</p>
+
+    <h3>What You See</h3>
+    <table>
+        <tr><th>Section</th><th>What it shows</th></tr>
+        <tr><td><strong>Balance</strong></td><td>Your current PHP balance</td></tr>
+        <tr><td><strong>Total Trades</strong></td><td>Number of trades made</td></tr>
+        <tr><td><strong>Wins / Losses</strong></td><td>Your win/loss record</td></tr>
+        <tr><td><strong>Profit / Loss</strong></td><td>Total profit or loss</td></tr>
+        <tr><td><strong>Active Trades</strong></td><td>Current open positions</td></tr>
+        <tr><td><strong>Live Logs</strong></td><td>Real-time activity feed</td></tr>
+    </table>
+
+    <h3>Control Buttons</h3>
+    <table>
+        <tr><th>Button</th><th>What it does</th></tr>
+        <tr><td><span class="tag green">START</span> / <span class="tag red">STOP</span></td><td>Turn trading on or off</td></tr>
+        <tr><td><span class="tag yellow">LIVE</span> / <span class="tag blue">DRY</span></td><td>Switch between real and paper trading</td></tr>
+        <tr><td><span class="tag gray">SET</span></td><td>Change your settings</td></tr>
+        <tr><td><span class="tag gray">RULES</span></td><td>Set your trading rules</td></tr>
+        <tr><td><span class="tag gray">PAIRS</span></td><td>Choose which coins to trade</td></tr>
+        <tr><td><span class="tag gray">WIFI</span></td><td>Change WiFi connection</td></tr>
+        <tr><td><span class="tag red">CLEAR</span></td><td>Remove all trades (keep settings)</td></tr>
+        <tr><td><span class="tag red">RESET</span></td><td>Factory reset everything</td></tr>
+        <tr><td><span class="tag red">RESTART</span></td><td>Reboot the device</td></tr>
+    </table>
+</div>
+
+<!-- ==================== TRADING MODES ==================== -->
+<div class="card" id="modes">
+    <h2>🎯 Trading Modes</h2>
+
+    <div class="grid">
+        <div class="col">
+            <h3>🟢 DRY Mode</h3>
+            <ul>
+                <li><strong>No real money involved</strong></li>
+                <li>Uses virtual balance</li>
+                <li>Perfect for testing strategies</li>
+                <li>Safe way to learn the system</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h3>🔴 LIVE Mode</h3>
+            <ul>
+                <li><strong>Uses your real funds</strong></li>
+                <li>Connects to exchange account</li>
+                <li>Requires API keys</li>
+                <li>Start with small amounts</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tip">
+        <strong>💡 Tip:</strong> Always test in DRY mode first before going LIVE!
+    </div>
+</div>
+
+<!-- ==================== API KEYS ==================== -->
+<div class="card" id="api">
+    <h2>🔑 Exchange API Keys</h2>
+
+    <h3>Getting Your Keys</h3>
+    <div class="step"><strong>1.</strong> Log in to your Coins.ph account</div>
+    <div class="step"><strong>2.</strong> Go to Settings → API Management</div>
+    <div class="step"><strong>3.</strong> Create a new API key with "Trade" permissions</div>
+    <div class="step"><strong>4.</strong> Save your API Key and Secret Key</div>
+
+    <div class="warning">
+        <strong>⚠️ Important:</strong> Keep your keys secure! Never share them.
+    </div>
+
+    <h3>Entering Your Keys</h3>
+    <div class="step"><strong>1.</strong> Click the "SET" button on dashboard</div>
+    <div class="step"><strong>2.</strong> Find the "Exchange" section</div>
+    <div class="step"><strong>3.</strong> Enter your API Key and Secret Key</div>
+    <div class="step"><strong>4.</strong> Click "Save"</div>
+</div>
+
+<!-- ==================== TRADING RULES ==================== -->
+<div class="card" id="rules">
+    <h2>📝 Trading Rules</h2>
+
+    <h3>How Rules Work</h3>
+    <p>Rules tell the bot <strong>when to buy</strong>. Each rule compares two things:</p>
+    <pre>IF [Something] IS [Greater/Less] THAN [Something Else]</pre>
+
+    <h3>Simple Example</h3>
+    <pre>BUY when RSI is less than 30</pre>
+    <p style="color:#666;font-size:13px;">Meaning: buy when the market is "oversold" (due for a bounce)</p>
+
+    <h3>Building a Rule</h3>
+    <div class="step"><strong>1.</strong> Click "RULES" button</div>
+    <div class="step"><strong>2.</strong> Choose left side (indicator, number, or price)</div>
+    <div class="step"><strong>3.</strong> Choose operator (&gt;, &lt;, or =)</div>
+    <div class="step"><strong>4.</strong> Choose right side (indicator, number, or price)</div>
+    <div class="step"><strong>5.</strong> Choose logic (AND = both true, OR = either true)</div>
+    <div class="step"><strong>6.</strong> Click "Save Rules"</div>
+
+    <h3>Common Indicators (Simplified)</h3>
+    <table>
+        <tr><th>Indicator</th><th>What it tells you</th></tr>
+        <tr><td><strong>SMA</strong></td><td>Average price over time (shows trend)</td></tr>
+        <tr><td><strong>EMA</strong></td><td>Trend with recent prices weighted more</td></tr>
+        <tr><td><strong>RSI</strong></td><td>Is the market overbought or oversold?</td></tr>
+        <tr><td><strong>MACD</strong></td><td>Is momentum building or fading?</td></tr>
+        <tr><td><strong>Bollinger Bands</strong></td><td>Is price unusually high or low?</td></tr>
+    </table>
+
+    <div class="tip">
+        <strong>💡 Tip:</strong> Start with simple rules and test in DRY mode first!
+    </div>
+</div>
+
+<!-- ==================== COIN SELECTION ==================== -->
+<div class="card" id="pairs">
+    <h2>🪙 Selecting Coins to Trade</h2>
+
+    <h3>What Are Trading Pairs?</h3>
+    <p>These are the cryptocurrencies you want to trade, priced in PHP:</p>
+    <ul>
+        <li><code>BTCPHP</code> = Bitcoin</li>
+        <li><code>ETHPHP</code> = Ethereum</li>
+        <li><code>DOGEPHP</code> = Dogecoin</li>
+        <li>and many more...</li>
+    </ul>
+
+    <h3>How to Choose</h3>
+    <div class="step"><strong>1.</strong> Click "PAIRS" button</div>
+    <div class="step"><strong>2.</strong> Check the boxes next to coins you want</div>
+    <div class="step"><strong>3.</strong> Optionally add custom pairs</div>
+    <div class="step"><strong>4.</strong> Click "Save Selected"</div>
+
+    <div class="tip">
+        <strong>💡 Recommendations for beginners:</strong>
+        <ul style="margin-top:5px">
+            <li>Start with <strong>3-5 pairs</strong> maximum</li>
+            <li>Include at least one major coin (BTC, ETH)</li>
+            <li>Avoid very volatile coins initially</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== SETTINGS ==================== -->
+<div class="card" id="settings">
+    <h2>⚙️ Settings Explained</h2>
+
+    <table>
+        <tr><th>Setting</th><th>What it does</th><th>Recommendation</th></tr>
+        <tr><td><strong>Stake</strong></td><td>Amount per trade</td><td>50-100 PHP to start</td></tr>
+        <tr><td><strong>Take Profit</strong></td><td>Profit target to close</td><td>0.25 PHP</td></tr>
+        <tr><td><strong>Stop Loss</strong></td><td>Maximum loss to accept</td><td>0.00 (disabled) for testing</td></tr>
+        <tr><td><strong>Max Spread</strong></td><td>Max price difference</td><td>0.2%</td></tr>
+        <tr><td><strong>Timeframe</strong></td><td>How often to analyze</td><td>1-5 minutes</td></tr>
+        <tr><td><strong>Max Trades</strong></td><td>Maximum open positions</td><td>3</td></tr>
+        <tr><td><strong>Order Timeout</strong></td><td>How long to wait for fill</td><td>10 seconds</td></tr>
+    </table>
+
+    <h3>Entry Schedule</h3>
+    <ul>
+        <li><strong>Enable Schedule:</strong> Limit trading to specific times</li>
+        <li><strong>Days:</strong> Select which days to trade</li>
+        <li><strong>Start/End Hour:</strong> UTC time range</li>
+    </ul>
+
+    <div class="tip">
+        <strong>💡 Tip:</strong> Use the schedule to avoid trading during high-volatility periods.
+    </div>
+</div>
+
+<!-- ==================== SAFETY ==================== -->
+<div class="card" id="safety">
+    <h2>🛡️ Safety & Risk Management</h2>
+
+    <h3>Built-in Safety Features</h3>
+    <ul>
+        <li><strong>Max Active Trades:</strong> Limits how many trades can be open at once</li>
+        <li><strong>Max Pairs:</strong> Limits how many coins are monitored</li>
+        <li><strong>Stop-Loss:</strong> Limits losses (configurable)</li>
+        <li><strong>Take-Profit:</strong> Locks in profits automatically</li>
+        <li><strong>DRY Mode:</strong> Practice without risk</li>
+        <li><strong>Spread Filter:</strong> Avoids trading during wide spreads</li>
+        <li><strong>Entry Schedule:</strong> Prevents trading at risky times</li>
+    </ul>
+
+    <div class="warning">
+        <strong>⚠️ Important:</strong> No trading system is risk-free. Start small and test thoroughly.
+    </div>
+
+    <h3>Best Practices</h3>
+    <ul>
+        <li>Always test new rules in DRY mode first</li>
+        <li>Start with small stakes</li>
+        <li>Monitor your bot regularly</li>
+        <li>Keep your API keys secure</li>
+        <li>Update rules based on market conditions</li>
+    </ul>
+</div>
+
+<!-- ==================== FAQ ==================== -->
+<div class="card" id="faq">
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <h3>Why aren't any trades opening?</h3>
+    <ul>
+        <li>Check if trading is STARTED (green button)</li>
+        <li>Verify you've set up rules</li>
+        <li>Make sure you've selected at least one trading pair</li>
+        <li>Check if the schedule allows trading</li>
+        <li>Ensure you have enough balance</li>
+    </ul>
+
+    <h3>What's the difference between LIVE and DRY?</h3>
+    <ul>
+        <li><strong>DRY:</strong> Paper trading, virtual money only</li>
+        <li><strong>LIVE:</strong> Real money, connects to your exchange account</li>
+    </ul>
+
+    <h3>Can I run this 24/7?</h3>
+    <ul>
+        <li>Yes, the bot is designed for continuous operation</li>
+        <li>It automatically reconnects if WiFi drops</li>
+        <li>Use the schedule feature to control trading hours</li>
+    </ul>
+
+    <h3>What happens if the power goes out?</h3>
+    <ul>
+        <li>All trades are saved automatically</li>
+        <li>The bot recovers its state when power returns</li>
+        <li>You can monitor and restart from the dashboard</li>
+    </ul>
+
+    <h3>How do I reset everything?</h3>
+    <ul>
+        <li>Click the "RESET" button on the dashboard</li>
+        <li>This clears all settings and trades</li>
+        <li>The device will restart automatically</li>
+    </ul>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div style="text-align:center;padding:25px 0;border-top:1px solid #151515;margin-top:10px">
+    <p style="color:#444;font-size:13px">Tinytrader User Guide v2.0</p>
+    <p style="color:#333;font-size:12px;margin-top:4px">Your Automated Trading Assistant</p>
+</div>
+
+</div>
+
+</body>
+</html>
