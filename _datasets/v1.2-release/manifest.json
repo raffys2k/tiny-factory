@@ -1,6 +1,6 @@
 {
   "version": 9,
   "stationSources": [
-    "https://raffys2k.github.io/data-relay/candidate.json"
+    "https://tiny-factory.raffi-s2k.workers.dev/_datasets/v1.2-release/candidate.json"
   ]
 }
