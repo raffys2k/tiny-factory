@@ -28,6 +28,7 @@
             --success: #7bcfa6;
             --warning: #f0c674;
             --danger: #e05a5a;
+            --wifi: #7bcfa6;
         }
 
         body {
@@ -263,6 +264,20 @@
             font-weight: 500;
         }
 
+        .info-card .sub-head {
+            margin-top: 16px;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-card .sub-head:first-of-type {
+            margin-top: 10px;
+        }
+
         .security-note {
             background: rgba(224, 90, 90, 0.15);
             border-left: 3px solid var(--danger);
@@ -275,6 +290,91 @@
 
         .security-note strong {
             color: var(--danger);
+        }
+
+        /* ===== WiFi Callout (emphasised notes) ===== */
+        .wifi-callout {
+            background: linear-gradient(180deg, rgba(123, 207, 166, 0.10), rgba(123, 207, 166, 0.04));
+            border: 1px solid var(--wifi);
+            border-left: 6px solid var(--wifi);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 14px 0;
+            box-shadow: 0 0 0 1px rgba(123, 207, 166, 0.15) inset;
+        }
+
+        .wifi-callout .wifi-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .wifi-callout .wifi-head .wifi-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .wifi-callout .wifi-head h4 {
+            color: var(--wifi);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .wifi-callout .wifi-head .tag-wifi {
+            background: rgba(123, 207, 166, 0.15);
+            border: 1px solid var(--wifi);
+            color: var(--wifi);
+            border-radius: 40px;
+            padding: 2px 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .wifi-callout p {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .wifi-callout ul,
+        .wifi-callout ol {
+            padding-left: 20px;
+            margin: 8px 0 0;
+        }
+
+        .wifi-callout li {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .wifi-callout li strong {
+            color: var(--wifi);
+            font-weight: 600;
+        }
+
+        .wifi-callout code {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            color: #d4c5b6;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .wifi-inline {
+            background: rgba(123, 207, 166, 0.12);
+            border-bottom: 2px solid var(--wifi);
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: #f0e6da;
+            font-weight: 500;
         }
 
         /* ===== Grid ===== */
@@ -580,7 +680,7 @@
                     <small>Internet Radio · TinyFactory</small>
                 </div>
             </div>
-            <div class="version-badge">v1.0.0 · 500+ stations</div>
+            <div class="version-badge">v2.0.6 · 1700+ stations</div>
         </header>
 
         <!-- ===== Tabs ===== -->
@@ -596,7 +696,7 @@
             <div class="stats-bar">
                 <div class="stat-item">
                     <span class="stat-label">Stations</span>
-                    <span class="stat-value" id="stationCount">500+</span>
+                    <span class="stat-value" id="stationCount">1700+</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Audio</span>
@@ -616,7 +716,7 @@
                 <h4>🎯 About</h4>
                 <p>
                     <strong>tinyRadio</strong> is an internet radio player that streams
-                    from a curated list of <strong>500+ stations</strong> worldwide.
+                    from a curated list of <strong>1700+ stations</strong> worldwide.
                     It's designed to be simple, reliable, and easy to use.
                 </p>
                 <p style="margin-top:8px;">
@@ -628,11 +728,11 @@
             <div class="info-card">
                 <h4>🚀 Getting Started</h4>
                 <ol>
-                    <li>Power on the device — it will automatically try to connect to WiFi.</li>
-                    <li>If no WiFi is configured, the device will start in <strong>setup mode</strong>.</li>
-                    <li>Follow the guide from this <strong><a href="https://tiny-factory.raffi-s2k.workers.dev/docs/radio_guide.htm">link</a></strong> on how to setup your radio</li>
-                    <li>Once connected, the radio will start playing from the last station.</li>
-                    <li>Access the web interface from any browser on the same network.</li>
+                    <li>Follow the guide from this <strong><a href="https://tiny-factory.raffi-s2k.workers.dev/docs/radio_guide.html">link</a></strong> on how to setup your radio</li>
+                    <li>Power on the device — it starts playing the last station you listened to.</li>
+                    <li>Open the interface using the Android app or from any browser to control volume, EQ and profiles.</li>
+                    <li>Pick a station from the <strong>1700+ station list</strong>.</li>
+                    <li>Set a <strong>daily profile</strong> if you want the radio to automate playback.</li>
                 </ol>
                 <div class="security-note">
                     <strong>🔒 Note:</strong> The web interface is only accessible from your
@@ -645,14 +745,14 @@
         <div class="tab-content" id="tab-features">
             <div class="section-title">
                 ⚙️ Features
-                <span class="badge">500+ stations</span>
+                <span class="badge">1700+ stations</span>
             </div>
 
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="icon">📻</span>
                     <div class="label">Stations</div>
-                    <div class="value">500+</div>
+                    <div class="value">1700+</div>
                 </div>
                 <div class="feature-item">
                     <span class="icon">🎚️</span>
@@ -815,13 +915,19 @@
                 </div>
             </div>
 
-            <div class="info-card">
-                <h4>🛡️ User Responsibility</h4>
+            <div class="wifi-callout">
+                <div class="wifi-head">
+                    <span class="wifi-icon">📶</span>
+                    <h4>User Responsibility · WiFi Configuration</h4>
+                    <span class="tag-wifi">Your responsibility</span>
+                </div>
                 <ul>
-                    <li>Use a strong WiFi password to protect your network</li>
-                    <li>Keep the device safe from fall or water damage</li>
-                    <li>Perform a factory reset before disposing of the device</li>
-                    <li>Contact support if you suspect any security issues</li>
+                    <li><strong>2.4 GHz + WPA2 only.</strong> 5 GHz, open networks, WEP and
+                        captive-portal logins (hotel, campus) will not connect.</li>
+                    <li><strong>The radio locks to your network.</strong> If you intend to reconfigure router/modem settings, 
+                        always perform a factory reset on the radio first before doing any network changes (change SSID or Password).</li>
+                    <li><strong>Factory reset first.</strong> before handing the device to someone else, moving it to a different location or making network configuration changes (SSID/Password).</li>
+                    <li><strong>Important: RADIO IS LOCKED TO YOUR NETWORK.</strong> If stolen, the device is USELESS to anyone else.</li>
                 </ul>
             </div>
         </div>
@@ -831,14 +937,13 @@
             <div class="info-card">
                 <h4>🛠️ Common Issues</h4>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">No WiFi connection</h4>
+                <h4 class="sub-head">No WiFi connection</h4>
                 <ul>
-                    <li>The device will enter setup mode automatically if no WiFi keys are found.</li>
-                    <li>Check that your WiFi network is 2.4 GHz (5 GHz is not supported).</li>
-                    <li>Ensure the WiFi password is correct.</li>
+                    <li>Check the requirements in <strong>Security → WiFi Configuration</strong>.</li>
+                    <li>Reboot the device — it will re-enter setup mode if it cannot connect.</li>
                 </ul>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">No audio / station not playing</h4>
+                <h4 class="sub-head">No audio / station not playing</h4>
                 <ul>
                     <li>Try a different station — some stations may be temporarily offline.</li>
                     <li>Check the volume level in the web interface.</li>
@@ -847,14 +952,14 @@
                     <li>Ensure that internet connection is active.</li>
                 </ul>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Web interface not loading</h4>
+                <h4 class="sub-head">Web interface not loading</h4>
                 <ul>
                     <li>Make sure your device is on the same network as the radio.</li>
                     <li>Check the device IP address from your router's DHCP list and connect directly to the IP.</li>
                     <li>Try using <code>http://tinyradio.local</code> on your browser.</li>
                 </ul>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Station Update fails</h4>
+                <h4 class="sub-head">Station Update fails</h4>
                 <ul>
                     <li>If the update fails, the device automatically restores the previous station list — your stations will not disappear.</li>
                     <li>Reboot tinyRadio. Check diagnostics for <code>Manifest</code>, verify version changed.</li>
@@ -862,14 +967,14 @@
                     <li>If the update succeeded but the new stations don't work for you, use <strong>Revert to Previous List</strong> on the Device page to roll back.</li>
                 </ul>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Station list looks wrong after an update</h4>
+                <h4 class="sub-head">Station list looks wrong after an update</h4>
                 <ul>
                     <li>Open the <strong>Device</strong> page in the web interface.</li>
                     <li>Tap <strong>Revert to Previous List</strong> to restore the previous station list.</li>
                     <li>This is available whenever a backup exists (it will be greyed out if there is nothing to revert to).</li>
                 </ul>
 
-                <h4 style="margin-top:14px; color:var(--text-secondary); font-size:0.8rem;">Reset the device</h4>
+                <h4 class="sub-head">Reset the device</h4>
                 <ul>
                     <li>Use the <strong>Factory Reset</strong> option in the web interface.</li>
                     <li>This clears all settings and WiFi credentials.</li>
@@ -884,7 +989,7 @@
                         <ul>
                             <li><strong>Short, Rapid Blue blinks:</strong> Normal operation</li>
                             <li><strong>Short, Rapid Red blinks:</strong> Setup mode or error</li>
-                            <li><strong>Short, Rapic Purple blinks:</strong> Action in progress</li>
+                            <li><strong>Short, Rapid Purple blinks:</strong> Action in progress</li>
                         </ul>
                     </li>
                     <li>For best performance, place the device within range of your WiFi router.</li>
@@ -902,7 +1007,7 @@
                 <span>factory</span>
             </span>
             <span>
-                <span id="stationFooterCount">500+</span> stations ·
+                <span id="stationFooterCount">1700+</span> stations ·
                 <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ top</a>
             </span>
         </footer>
@@ -933,9 +1038,12 @@
 
         // ===== Station count =====
         const grid = document.getElementById('stationGrid');
-        const totalStations = grid ? grid.querySelectorAll('.station-chip').length : 500;
-        document.getElementById('stationCount').textContent = totalStations + '+';
-        document.getElementById('stationFooterCount').textContent = totalStations + '+';
+        const totalStations = grid ? grid.querySelectorAll('.station-chip').length : 1700;
+        const labelled = totalStations.toLocaleString('en-US') + '+';
+
+        document.querySelectorAll('#stationCount, #stationFooterCount').forEach(el => {
+            if (el) el.textContent = labelled;
+        });
     </script>
 </body>
 </html>

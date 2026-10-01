@@ -623,11 +623,11 @@
             <p class="step-desc">Before we start, let's make sure you have everything you need.</p>
 
             <div class="info-card">
-                <h4>✅ Included</h4>
+                <h4>✅ Basic Requirements</h4>
                 <ul>
                     <li>tiny Radio device</li>
-                    <li>USB-C power cable</li>
-                    <li>Quick start card (optional)</li>
+                    <li>USB-C power cable (not included)</li>
+                    <li>5v 2A power adapter (not included)</li>
                 </ul>
             </div>
 
@@ -636,15 +636,15 @@
                 <ul>
                     <li>A <strong>WiFi network</strong> (2.4 GHz)</li>
                     <li>Your <strong>WiFi name (SSID)</strong> and <strong>password</strong></li>
-                    <li>An <strong>Android phone</strong> (optional — for the app)</li>
-                    <li>A <strong>web browser</strong> (optional — for web setup)</li>
+                    <li>An <strong>Android phone</strong> (for Android App setup)</li>
+                    <li>A <strong>web browser</strong> (for web setup)</li>
                     <li>A <strong>power outlet</strong> near the device</li>
                 </ul>
             </div>
 
             <div class="image-placeholder">
                 <span class="icon">📦</span>
-                <p>Contents: tiny Radio device, USB-C cable, quick start card</p>
+                <p>Contents: tiny Radio device, USB-C cable, Mobile power adapter</p>
             </div>
 
             <div class="btn-row">
@@ -662,9 +662,9 @@
                 <h4>📋 Instructions</h4>
                 <ol>
                     <li>Connect the USB-C cable to the <strong>tiny Radio</strong> device.</li>
-                    <li>Plug the other end into a <strong>power adapter</strong> (5V, 1A or higher).</li>
-                    <li>Wait about <strong>10–15 seconds</strong> for the device to start up.</li>
-                    <li>The device will automatically enter <strong>setup mode</strong> if no WiFi is configured.</li>
+                    <li>Plug the other end into a <strong>power adapter</strong> (5V, 2A or higher).</li>
+                    <li>Wait about <strong>10-15 seconds</strong> for the device to start up.</li>
+                    <li>The device will automatically enter <strong>setup mode</strong> for the first time.</li>
                 </ol>
             </div>
 
@@ -696,7 +696,7 @@
                     <h4>tiny Radio App for Android</h4>
                     <p>Quick and easy setup right from your phone. Available for download here.</p>
                 </div>
-                <a href="https://tiny-factory.netlify.app/apps/tinyRadio.apk" class="app-badge">📲 Get the App</a>
+                <a href="https://tiny-factory.netlify.app/apps/tiny-public-release-ver260-tested.apk" class="app-badge">📲 Get the App</a>
             </div>
 
             <div class="method-grid">
@@ -731,20 +731,22 @@
                 <ol>
                     <li>Download and install the <strong>tiny Radio app</strong> from the button above.</li>
                     <li>Open your phone/tablet's <strong>WiFi settings</strong>.</li>
-                    <li>Connect to <code>TinyRadio AP</code> (no password).</li>
+                    <li>Connect to <code>TinyRadio AP</code> (check bottom of device for password).</li>
                     <li>Open the tinyRadio android application.</li>
-                    <li>Click <strong>"Scan Networks"</strong> or Enter your <strong>WiFi name and password</strong> in the app.</li>
+                    <li>Click <strong>"Scan Networks"</strong> or Manually enter your <strong>WiFi name and password</strong> in the app.</li>
                     <li>Tap <strong>"Save &amp; Reboot"</strong> — the app handles the rest!</li>
-                    <li>In case the android application doesnt automatically refresh.
+                    <li>The radio will reboot and connect to your WiFi network.</li>
                         <ol>
-                            <li>Exit the tinyRadio android application</li>
-                            <li>Clear recents or clear tinyRadio application data</li>
-                            <li>Open the tinyRadio application again.</li>
+                            <li>Wait for the radio to play a station for the first time.</li>
+                            <li>Once the radio starts playing, connect the phone/tablet to the same WiFi network</li>
+                            <li>Press the refresh button in the topmost right corner to update the Android apps dashboard.</li>
+                            <li>Radio will pause while it updates the Android Apps dropdown station list. It's normal behavior.</li>
+                            <li>Just wait for it to finish.</li>
                         </ol>
                     </li>
                 </ol>
                 <div class="success-box" style="margin-top:8px;">
-                    <strong>✨ Done!</strong> The device will connect to your WiFi on reboot and start playing.
+                    <strong>✨ Done!</strong> The device is connected with the latest station list.
                 </div>
             </div>
 
@@ -753,10 +755,18 @@
                 <h4>🌐 Setup with Web Browser</h4>
                 <ol>
                     <li>Open your phone/computer's <strong>WiFi settings</strong>.</li>
-                    <li>Connect to <code>TinyRadio AP</code> (no password).</li>
+                    <li>Connect to <code>TinyRadio AP</code> (check bottom of device for password).</li>
                     <li>Open your <strong>web browser</strong> and go to <code>192.168.4.1</code>.</li>
                     <li>Click <strong>"Scan Networks"</strong> or enter your WiFi name.</li>
                     <li>Enter your WiFi <strong>password</strong> and click <strong>"Save &amp; Reboot"</strong>.</li>
+                    <li>The radio will reboot and connect to your WiFi network.</li>
+                        <ol>
+                            <li>Wait for the radio to play a station for the first time.</li>
+                            <li>Once the radio starts playing, go to this link <code>http://tinyradio.local</code></li>
+                            <li>Radio will pause while it updates the browsers dropdown station list. It's normal behavior.</li>
+                            <li>Just wait for it to finish.</li>
+                        </ol>
+                    </li>
                 </ol>
                 <div class="tip-box" style="margin-top:8px;">
                     <strong>💡 Tip:</strong> The device only supports <strong>2.4 GHz</strong> WiFi networks.
@@ -766,7 +776,8 @@
 
             <div class="warning-box">
                 <strong>⚠️ Important:</strong> After saving WiFi credentials, the device will reboot.
-                This takes about <strong>30 seconds</strong>. Please wait — don't unplug the device.
+                This takes about <strong>30 seconds or more</strong>. Please wait — don't unplug the device. 
+                Initial setup downloads the station list and may take a minute depending on your network speed.
             </div>
 
             <div class="btn-row">
@@ -784,7 +795,7 @@
             <div class="info-card">
                 <h4>🎯 What Happens Next</h4>
                 <ol>
-                    <li>The device <strong>reboots</strong> and connects to your WiFi.</li>
+                    <li>The device <strong>is now connected</strong> and normal playback begins.</li>
                     <li>It will automatically start playing the <strong>first station</strong> in the list.</li>
                     <li>Connect your phone/computer to the same network.</li>
                     <li>You can now control the radio from your <strong>Android app</strong> or <strong>web browser</strong>.</li>
