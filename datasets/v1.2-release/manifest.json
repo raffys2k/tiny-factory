@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 4,
   "stationSources": [
     "https://tiny-factory.raffi-s2k.workers.dev/datasets/v1.2-release/candidate.json"
   ]
